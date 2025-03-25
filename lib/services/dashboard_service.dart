@@ -1,3 +1,4 @@
+import 'package:cipshoe/services/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -8,9 +9,7 @@ class DashboardService {
   static const String _webViewKey = 'show_web_view_flag';
   static const String _webViewUrlKey = 'web_view_url';
   static const String _lastCheckKey = 'last_dashboard_check';
-  static const String _configEndpoint =
-      'https://raw.githubusercontent.com/Amegodev/amegodev.github.io/refs/heads/master/api/other/shoesAI.json';
-  static const String _defaultWebViewUrl = 'https://google.com';
+  static const String _defaultWebViewUrl = 'https://pdf.io/';
 
   /// Determines whether the app should show the web dashboard
   /// Returns true if web dashboard should be shown, false for native UI
@@ -52,7 +51,7 @@ class DashboardService {
   static Future<bool> _fetchDashboardConfig(SharedPreferences prefs) async {
     try {
       final response = await http
-          .get(Uri.parse(_configEndpoint))
+          .get(Uri.parse(CONFIG_ENDPOINT))
           .timeout(const Duration(seconds: 5));
 
       if (response.statusCode == 200) {
